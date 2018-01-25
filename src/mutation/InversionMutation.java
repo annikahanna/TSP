@@ -3,7 +3,6 @@ package mutation;
 import base.City;
 import base.Tour;
 import main.Configuration;
-import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
 import java.util.Collections;
