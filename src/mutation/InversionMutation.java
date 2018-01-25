@@ -24,7 +24,7 @@ public class InversionMutation implements IMutation {
     private int getEndMutateIndex(Tour tour, int minIndex)
     {
         MersenneTwisterFast random = new MersenneTwisterFast();
-        return random.nextInt(minIndex + 1, tour.getCities().size());
+        return random.nextInt(minIndex + 1, tour.getSize());
     }
 
     private Tour InverseCities(Tour tour, int from, int to)
