@@ -3,6 +3,7 @@ package main;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import base.City;
+import bruteforce.Permutation;
 import crossover.ICrossover;
 import data.HSQLDBManager;
 import data.InstanceReader;
@@ -38,6 +39,7 @@ public class Application {
     }
 
     public void loadData() {
+        Permutation permutation = new Permutation();
         System.out.println("--- GeneticAlgorithm.loadData()");
         InstanceReader instanceReader = new InstanceReader(Configuration.instance.dataFilePath);
         instanceReader.open();
@@ -52,6 +54,7 @@ public class Application {
         instanceReader.close();
 
         System.out.println();
+        permutation.generate(tspLibReader);
     }
 
     public void initConfiguration() {
@@ -65,9 +68,11 @@ public class Application {
     }
 
     public static void main(String... args) {
+
         Application application = new Application();
         application.startupHSQLDB();
         application.loadData();
+
         application.initConfiguration();
         application.execute();
         application.shutdownHSQLDB();
