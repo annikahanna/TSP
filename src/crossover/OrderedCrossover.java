@@ -2,7 +2,7 @@ package crossover;
 
 import base.City;
 import base.Tour;
-import random.MersenneTwisterFast;
+import main.Configuration;
 
 import java.util.ArrayList;
 
@@ -11,12 +11,10 @@ import java.util.ArrayList;
  */
 public class OrderedCrossover implements ICrossover {
 
-    private static MersenneTwisterFast mtF = new MersenneTwisterFast();
-
     public Tour doCrossover(Tour tour01, Tour tour02) {
         int citiesCount = tour01.getSize();
-        int startIndex = mtF.nextInt(0, citiesCount - 2);
-        int length = mtF.nextInt(1, citiesCount - startIndex - 1);
+        int startIndex = Configuration.instance.Random.nextInt(0, citiesCount - 2);
+        int length = Configuration.instance.Random.nextInt(1, citiesCount - startIndex - 1);
 
         ArrayList<City> newCities = new ArrayList<>(tour02.getCities()); //workaround initial capacity
         ArrayList<City> citiesToAdd = new ArrayList<>(tour02.getCities());

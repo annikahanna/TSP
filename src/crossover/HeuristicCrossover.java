@@ -2,7 +2,7 @@ package crossover;
 
 import base.City;
 import base.Tour;
-import random.MersenneTwisterFast;
+import main.Configuration;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
@@ -58,8 +58,7 @@ public class HeuristicCrossover implements ICrossover {
     }
 
     private static City getRandomCity(ArrayList<City> cities) {
-        MersenneTwisterFast mtf = new MersenneTwisterFast();
-        int randomIndex = mtf.nextInt(0, cities.size() - 1);
+        int randomIndex = Configuration.instance.Random.nextInt(0, cities.size() - 1);
         return cities.get(randomIndex);
     }
 
