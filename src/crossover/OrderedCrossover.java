@@ -14,7 +14,6 @@ public class OrderedCrossover implements ICrossover {
     private static MersenneTwisterFast mtF = new MersenneTwisterFast();
 
     public Tour doCrossover(Tour tour01, Tour tour02) {
-
         int citiesCount = tour01.getSize();
         int startIndex = mtF.nextInt(0, citiesCount - 2);
         int length = mtF.nextInt(1, citiesCount - startIndex - 1);
