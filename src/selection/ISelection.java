@@ -2,7 +2,8 @@ package selection;
 
 import base.Population;
 import base.Tour;
+import java.util.ArrayList;
 
 public interface ISelection {
-    Tour doSelection(Population population);
+    ArrayList<Tour> doSelection(Population population);
 }
