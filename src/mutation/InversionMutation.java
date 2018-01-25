@@ -2,6 +2,7 @@ package mutation;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
@@ -9,22 +10,14 @@ import java.util.Collections;
 
 public class InversionMutation implements IMutation {
     public Tour doMutation(Tour tour) {
-        int startMutate = getStartMutateIndex(tour);
+        int startMutate = Configuration.instance.Random.nextInt(tour.getSize());
         int endMutate = getEndMutateIndex(tour, startMutate);
-
         return InverseCities(tour, startMutate, endMutate);
-    }
-
-    private int getStartMutateIndex(Tour tour)
-    {
-        MersenneTwisterFast random = new MersenneTwisterFast();
-        return random.nextInt(tour.getCities().size());
     }
 
     private int getEndMutateIndex(Tour tour, int minIndex)
     {
-        MersenneTwisterFast random = new MersenneTwisterFast();
-        return random.nextInt(minIndex + 1, tour.getSize());
+        return Configuration.instance.Random.nextInt(minIndex + 1, tour.getSize());
     }
 
     private Tour InverseCities(Tour tour, int from, int to)
