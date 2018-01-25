@@ -7,11 +7,6 @@ public class HeuristicCrossover implements ICrossover {
         return null;
     }
 
-
-
-
-
-
     public String toString() {
         return getClass().getSimpleName();
     }
