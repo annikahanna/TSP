@@ -2,6 +2,7 @@ package bruteforce;
 
 import java.util.ArrayList;
 
+//Kombination von der Tour mit der gesamten Distanz
 public class CityCombination {
     private ArrayList<Integer> cities;
     private double distance;
@@ -15,15 +16,8 @@ public class CityCombination {
         return cities;
     }
 
-    public void setCities(ArrayList<Integer> cities) {
-        this.cities = cities;
-    }
-
     public double getDistance() {
         return distance;
     }
 
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
 }
