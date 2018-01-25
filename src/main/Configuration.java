@@ -17,4 +17,5 @@ public enum Configuration {
 
     public final int FIGHT_COUNT = 52;
     public final int ROULETTE_COUNT = 26;
+    public final double ASSERT_DELTA = 1e-15;
 }

@@ -51,38 +51,73 @@ public class TournamentSelection implements ISelection {
             if(contenders.getSize() > 1){
 
                 // Randomly get 2 contenders from the contender list
-                int contender1 = Configuration.instance.Random.nextInt(0, Configuration.instance.FIGHT_COUNT - (2*k) -1);
-                int contender2 = Configuration.instance.Random.nextInt(0, Configuration.instance.FIGHT_COUNT - (2*k) -1);
+                int contender1 = getRandomContender(k);
+                int contender2 = getRandomContender(k);
 
-                // Make sure they are different (likely with small contender numbers towards the end)
+                // Make sure they are different (otherwise same indexes are common towards the end)
                 while(contender1 == contender2)
-                    contender2 = Configuration.instance.Random.nextInt(0, Configuration.instance.FIGHT_COUNT - (2*k) -1);
+                    contender2 = getRandomContender(k);
 
                 // Get fitness of the contenders
                 double fitnessContender1 = contenders.getSingleTour(contender1).getFitness();
                 double fitnessContender2 = contenders.getSingleTour(contender2).getFitness();
 
-                // Choose winner
-                if(fitnessContender1 < fitnessContender2)
-                    winners.add(contenders.getSingleTour(contender1));
-                else
-                    winners.add(contenders.getSingleTour(contender2));
+                // Evaluate winner from fitness score
+                chooseWinner(contenders, winners, fitnessContender1, fitnessContender2, contender1, contender2);
 
-                // Delete current contenders
-                if(contender1 > contender2){
-                    contenders.removeSingleTour(contender1);
-                    contenders.removeSingleTour(contender2);
-                }
-                else{
-                    contenders.removeSingleTour(contender2);
-                    contenders.removeSingleTour(contender1);
-                }
-
-                // Remove empty spots in the contender list
-                contenders.trimSingleTour();
+                // Remove current contenders from the contender list
+                removeCurrentContenders(contenders, contender1, contender2);
             }
         }
         return winners;
+    }
+
+    /**
+     * Get random index to determine a contender
+     * @param currentFightCount Current fight count
+     * @return Index for new contender
+     */
+    private int getRandomContender(int currentFightCount){
+        return Configuration.instance.Random.nextInt(0, Configuration.instance.FIGHT_COUNT - (2 * currentFightCount) - 1);
+    }
+
+    /**
+     * Choose winner depending on higher fitness score
+     * @param contenders List of contenders
+     * @param winners List of winners
+     * @param fitnessContender1 Fitness score of current contender
+     * @param fitnessContender2 Fitness score of current contender
+     * @param contender1 Current contender
+     * @param contender2 Current contender
+     */
+    public void chooseWinner(Population contenders, ArrayList<Tour> winners, double fitnessContender1, double fitnessContender2, int contender1, int contender2){
+        // Choose winner
+        if(fitnessContender1 < fitnessContender2)
+            winners.add(contenders.getSingleTour(contender1));
+        else
+            winners.add(contenders.getSingleTour(contender2));
+    }
+
+    /**
+     * Removes current contenders from the contender list
+     * @param contenders List of contenders
+     * @param contender1 Current contender
+     * @param contender2 Current contender
+     */
+    private void removeCurrentContenders(Population contenders, int contender1, int contender2){
+
+        // Delete current contenders
+        if(contender1 > contender2){
+            contenders.removeSingleTour(contender1);
+            contenders.removeSingleTour(contender2);
+        }
+        else{
+            contenders.removeSingleTour(contender2);
+            contenders.removeSingleTour(contender1);
+        }
+
+        // Remove empty spots in the contender list
+        contenders.trimSingleTour();
     }
 
     public String toString() {return getClass().getSimpleName();}
