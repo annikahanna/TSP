@@ -29,6 +29,7 @@ public class TournamentSelection implements ISelection {
 
         Population contenders = new Population();
 
+        // Choose random contenders from given population
         for(int i = 0; i < Configuration.instance.FIGHT_COUNT; i++)
             contenders.addTourToPopulation(population.getSingleTour(Configuration.instance.Random.nextInt(0, 99)));
 
@@ -61,11 +62,13 @@ public class TournamentSelection implements ISelection {
                 double fitnessContender1 = contenders.getSingleTour(contender1).getFitness();
                 double fitnessContender2 = contenders.getSingleTour(contender2).getFitness();
 
+                // Choose winner
                 if(fitnessContender1 < fitnessContender2)
                     winners.add(contenders.getSingleTour(contender1));
                 else
                     winners.add(contenders.getSingleTour(contender2));
 
+                // Delete current contenders
                 if(contender1 > contender2){
                     contenders.removeSingleTour(contender1);
                     contenders.removeSingleTour(contender2);
@@ -74,6 +77,8 @@ public class TournamentSelection implements ISelection {
                     contenders.removeSingleTour(contender2);
                     contenders.removeSingleTour(contender1);
                 }
+
+                // Remove empty spots in the contender list
                 contenders.trimSingleTour();
             }
         }
