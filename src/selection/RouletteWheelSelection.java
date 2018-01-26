@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import base.Population;
 import base.Tour;
 import main.Configuration;;
+import java.text.DecimalFormat;
 
 public class RouletteWheelSelection implements ISelection {
 
@@ -28,22 +29,39 @@ public class RouletteWheelSelection implements ISelection {
         ArrayList<Tour> selectedTours;
         selectedTours = new ArrayList<>() ;
 
-        int c = 1;
+
+        int c = 1, i=0;
+        double r = Math.round(Configuration.instance.Random.nextDouble() *1000.0)/1000.0;
         while (c<=Configuration.instance.ROULETTE_COUNT) {
 
-            for (int i = 0; i < rouletteWheel.length; i++) {
-                double r = Math.round(Configuration.instance.Random.nextDouble(0.000, 1.000) * 1000.0) / 1000.0;
-                if (r <= rouletteWheel[i]) {
-                    Tour a = population.getSingleTour(i);
-                    if (!alreadySelected(selectedTours, a)) {
-                        selectedTours.add(a);
-                        c++;
-                        System.out.println(c);
-                    } else
-                        break;
+            if(r <= rouletteWheel[i]) {
+                Tour a = population.getSingleTour(i);
+                if (alreadySelected(selectedTours, a)==false)
+                {
+                    selectedTours.add( a);
+                    System.out.println( c + " + " + r + " + " + i);
+                    c++;
+                    i=0;
+                    r= Math.round(Configuration.instance.Random.nextDouble() *1000.0)/1000.0;
+                }
+                else
+                {
+                    i=0;
+                    r= Math.round(Configuration.instance.Random.nextDouble() *1000.0)/1000.0;
+                    System.out.println( "Duplikat" );
                 }
             }
+            else if(i<rouletteWheel.length)
+            {
+                i++;
+            }
+            else
+            {
+                System.out.println("Fehler2!");
+            }
+
         }
+        System.out.println(selectedTours.size());
         return selectedTours;
     }
 

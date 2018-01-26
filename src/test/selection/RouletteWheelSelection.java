@@ -12,8 +12,9 @@ public class RouletteWheelSelection {
     public void testRoulette(){
 
         selection.RouletteWheelSelection t = new selection.RouletteWheelSelection();
+        TestTourHelper th = new TestTourHelper();
 
-        Population p = TestTourHelper.getAscendingPopulation(100, 280);
+        Population p = th.getAscendingPopulation(100, 280, true, null);
 
         ArrayList<Tour> tt = t.doSelection(p);
 
