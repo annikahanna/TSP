@@ -1,11 +1,9 @@
 package selection;
 
 import java.util.ArrayList;
-
 import base.Population;
 import base.Tour;
 import main.Configuration;;
-import java.text.DecimalFormat;
 
 public class RouletteWheelSelection implements ISelection {
 
@@ -14,41 +12,42 @@ public class RouletteWheelSelection implements ISelection {
         double populationFitness=0;
         for (int i=0; i < population.getSize(); i++)
         {
-            populationFitness= populationFitness + population.getSingleTour(i).getFitness();
+            populationFitness = populationFitness + population.getSingleTour(i).getFitness();
         }
 
         double[] rouletteWheel ;
         rouletteWheel = new double[population.getSize()];
-        rouletteWheel[0] = Math.round((population.getSingleTour(0).getFitness() / populationFitness) *1000.0)/1000.0;
-
-        for (int i=1 ; i < rouletteWheel.length ; i++)
-        {
-            rouletteWheel[i] = Math.round((population.getSingleTour(i).getFitness() / populationFitness) *1000.0)/1000.0 + rouletteWheel[i-1];
+        rouletteWheel[0] = Math.round((population.getSingleTour(0).getFitness() / populationFitness) *1000000.0)/1000000.0;
+        System.out.print(rouletteWheel[0] + " / ");
+        for (int i=1 ; i < rouletteWheel.length ; i++) {
+            rouletteWheel[i] = Math.round( (rouletteWheel[i - 1] + (population.getSingleTour(i).getFitness() / populationFitness)) *1000000.0) /1000000.0;
+            System.out.print(rouletteWheel[i] + " / ");
         }
 
         ArrayList<Tour> selectedTours;
-        selectedTours = new ArrayList<>() ;
-
+        selectedTours = new ArrayList<>();
 
         int c = 1, i=0;
-        double r = Math.round(Configuration.instance.Random.nextDouble() *1000.0)/1000.0;
-        while (c<=Configuration.instance.ROULETTE_COUNT) {
-
-            if(r <= rouletteWheel[i]) {
+        double r = Math.round(Configuration.instance.Random.nextDouble() *1000000.0)/1000000.0;
+        while (c<=Configuration.instance.ROULETTE_COUNT)
+        {
+            if(r <= rouletteWheel[i])
+            {
                 Tour a = population.getSingleTour(i);
                 if (alreadySelected(selectedTours, a)==false)
                 {
                     selectedTours.add( a);
+                    System.out.println();
                     System.out.println( c + " + " + r + " + " + i);
                     c++;
                     i=0;
-                    r= Math.round(Configuration.instance.Random.nextDouble() *1000.0)/1000.0;
+                    r= Math.round(Configuration.instance.Random.nextDouble() *1000000.0)/1000000.0;
                 }
                 else
                 {
+                    System.out.println( "Duplikat " + i );
                     i=0;
-                    r= Math.round(Configuration.instance.Random.nextDouble() *1000.0)/1000.0;
-                    System.out.println( "Duplikat" );
+                    r= Math.round(Configuration.instance.Random.nextDouble() *1000000.0)/1000000.0;
                 }
             }
             else if(i<rouletteWheel.length)
@@ -57,11 +56,11 @@ public class RouletteWheelSelection implements ISelection {
             }
             else
             {
-                System.out.println("Fehler2!");
+                i=0;
+                r= Math.round(Configuration.instance.Random.nextDouble() *1000000.0)/1000000.0;
             }
 
         }
-        System.out.println(selectedTours.size());
         return selectedTours;
     }
 
