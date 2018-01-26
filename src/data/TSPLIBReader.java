@@ -89,4 +89,8 @@ public class TSPLIBReader {
     public double[][] getDistances() {
         return distances;
     }
+
+    public double getDistance(int firstCity, int secondCity){
+        return distances[firstCity][secondCity];
+    }
 }
