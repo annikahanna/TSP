@@ -9,7 +9,7 @@ import static java.lang.Math.toIntExact;
 public class Permutation {
 
 
-    long dimension = 20l;
+    long dimension = 1000l;
 
     double distance = 0;
 
@@ -47,6 +47,8 @@ public class Permutation {
 
         }
         Scanner scanner = new Scanner(System.in);
+        System.out.println("What do you want to analyze? Please insert parameter.");
+        System.out.println("You can choose between all, first, middle and last");
         String eval = scanner.nextLine();
 
         //Evaluierung der Eingabe
@@ -61,10 +63,10 @@ public class Permutation {
 
                 break;
             case "first":
-                ArrayList<CityCombination> first = ergebnis;
+                ArrayList<CityCombination> first = new ArrayList<>();
 
-                for (int v = ergebnis.size() / 4; v < ergebnis.size(); v++) {
-                    first.remove(v);
+                for (int v = 0; v < ergebnis.size() / 4; v++) {
+                    first.add(ergebnis.get(v));
                 }
 
                 CityCombination tourFirst = min.sort(first);
@@ -76,15 +78,12 @@ public class Permutation {
 
                 break;
             case "middle":
-                ArrayList<CityCombination> middle = ergebnis;
+                ArrayList<CityCombination> middle = new ArrayList<>();
 
-                for (int v = ergebnis.size() / 4 * 3; v < ergebnis.size(); v++) {
-                    middle.remove(v);
+                for (int v = ergebnis.size() / 4; v < ergebnis.size()/4*3; v++) {
+                    middle.add(ergebnis.get(v));
                 }
 
-                for (int w = 0; w < ergebnis.size() / 4; w++) {
-                    middle.remove(w);
-                }
 
                 CityCombination tourMiddle = min.sort(middle);
                 System.out.println(tourMiddle.getDistance());
@@ -95,10 +94,10 @@ public class Permutation {
 
                 break;
             case "last":
-                ArrayList<CityCombination> last = ergebnis;
+                ArrayList<CityCombination> last = new ArrayList<>();
 
-                for (int v = 0; v < ergebnis.size() / 4 * 3; v++) {
-                    last.remove(v);
+                for (int v = ergebnis.size() / 4 * 3; v < ergebnis.size(); v++) {
+                    last.add(ergebnis.get(v));
                 }
 
                 CityCombination tourLast = min.sort(last);
