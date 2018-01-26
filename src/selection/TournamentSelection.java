@@ -52,7 +52,7 @@ public class TournamentSelection implements ISelection {
                 int contender2 = getRandomContender(k);
 
                 // Make sure they are different (otherwise same indexes are common towards the end)
-                if(!(contender1 != contender2))
+                if(contender1 == contender2)
                     contender2 = randomizeContender(contender1, contender2, k);
 
                 // Get fitness of the contenders
