@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class PositionBasedCrossover implements ICrossover {
     public Tour doCrossover(Tour tour01,Tour tour02) {
 
-        ArrayList<City> tour01Cities = tour01.getCities();
-        ArrayList<City> tour02Cities = tour02.getCities();
+        ArrayList<City> tour01Cities = new ArrayList<>(tour01.getCities());
+        ArrayList<City> tour02Cities = new ArrayList<>(tour02.getCities());
         Tour childTour = new Tour();
         MersenneTwisterFast randomizer = new MersenneTwisterFast();
         City noRealCity = new City(-1, -1, -1);
