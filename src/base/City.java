@@ -32,4 +32,5 @@ public class City {
         stringBuilder.append(" }");
         return stringBuilder.toString();
     }
+
 }
