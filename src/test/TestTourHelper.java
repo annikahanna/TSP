@@ -1,6 +1,7 @@
 package test;
 
 import base.City;
+import base.Population;
 import base.Tour;
 import main.Configuration;
 import random.MersenneTwisterFast;
@@ -88,4 +89,32 @@ public class TestTourHelper {
         return randomizedCities;
     }
 
+    /**
+     * Creates a random Population
+     * @param populationSize Desired size of population
+     * @param tourSize Desired size of tour
+     * @return
+     */
+    public static Population getAscendingPopulation(int populationSize, int tourSize, boolean isRandom, double[] cityXy){
+
+        Population p = new Population();
+        Tour tour = null;
+
+        for(int k = 0; k < populationSize; k++){
+            tour = new Tour();
+
+            for(int i = 0; i < tourSize; i++) {
+                if(isRandom)
+                    tour.addCity(new City(i, Configuration.instance.Random.nextDouble(),  Configuration.instance.Random.nextDouble()));
+                else
+                if(k > 0)
+                    tour.addCity(new City(i+1, cityXy[i],  cityXy[i+1]));
+                else
+                    tour.addCity(new City(i, cityXy[9+i],  cityXy[10+i]));
+            }
+            p.addTourToPopulation(tour);
+        }
+
+        return p;
+    }
 }
