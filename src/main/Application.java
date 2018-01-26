@@ -55,7 +55,7 @@ public class Application {
         instanceReader.close();
 
         System.out.println();
-        permutation.generate(tspLibReader);
+        permutation.generate(tspLibReader, false);
     }
 
     public void initConfiguration() {

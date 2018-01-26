@@ -1,23 +1,23 @@
 package bruteforce;
 
+
+import data.InstanceReader;
 import data.TSPLIBReader;
-
+import main.Application;
+import main.Configuration;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
 import java.util.*;
-
-import static java.lang.Math.toIntExact;
 
 public class Permutation {
 
 
     long dimension = 10000l;
-
     double distance = 0;
-
     ArrayList<CityCombination> ergebnis = new ArrayList<>();
 
-
-    public void generate(TSPLIBReader tsplibReader) {
-        MinimalDistance min = new MinimalDistance();
+    public void generate(TSPLIBReader tsplibReader, boolean isUnitTest) {
 
         //Schleife für 4 Mrd. Wiederholungen
         for (long k = 0l; k < dimension; k++) {
@@ -46,6 +46,14 @@ public class Permutation {
             ergebnis.add(new CityCombination(cities, distance));
 
         }
+        if (!isUnitTest) {
+            evaluation();
+        }
+    }
+
+    private void evaluation(){
+
+        MinimalDistance min = new MinimalDistance();
         Scanner scanner = new Scanner(System.in);
         System.out.println("What do you want to analyze? Please insert parameter.");
         System.out.println("You can choose between all, first, middle and last");
@@ -80,7 +88,7 @@ public class Permutation {
             case "middle":
                 ArrayList<CityCombination> middle = new ArrayList<>();
 
-                for (int v = ergebnis.size() / 4; v < ergebnis.size()/4*3; v++) {
+                for (int v = ergebnis.size() / 4; v < ergebnis.size() / 4 * 3; v++) {
                     middle.add(ergebnis.get(v));
                 }
 
@@ -103,7 +111,7 @@ public class Permutation {
                 CityCombination tourLast = min.sort(last);
                 System.out.println(tourLast.getDistance());
 
-                for(int q = 0; q< tourLast.getCities().size(); q++){
+                for (int q = 0; q < tourLast.getCities().size(); q++) {
                     System.out.println(tourLast.getCities().get(q));
                 }
 
@@ -111,13 +119,23 @@ public class Permutation {
             default:
                 System.out.println("Wrong parameter");
         }
-        //zum testen
+    }
+    Application app = new Application();
 
+    @Before
+    public void init(){
 
+        app.startupHSQLDB();
+        InstanceReader instanceReader = new InstanceReader(Configuration.instance.dataFilePath);
+        instanceReader.open();
+        TSPLIBReader tsplibReader = new TSPLIBReader(instanceReader);
+        generate(tsplibReader, true);
+    }
 
-          /*  for(int m = 0; m<280; m++)
-            System.out.println(cities.get(m));
-            System.out.println(distance);*/
+    @Test
+    public void hasResultSameElementsAsDimension (){
 
+        assertEquals(dimension, ergebnis.size());
+        app.shutdownHSQLDB();
     }
 }
