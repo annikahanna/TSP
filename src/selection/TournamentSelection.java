@@ -30,7 +30,7 @@ public class TournamentSelection implements ISelection {
         Population contenders = new Population();
 
         // Choose random contenders from given population
-        for(int i = 0; i < Configuration.instance.FIGHT_COUNT; i++)
+        for(int i = 0; i < Configuration.instance.CONTENDER_COUNT; i++)
             contenders.addTourToPopulation(population.getSingleTour(Configuration.instance.Random.nextInt(0, 99)));
 
         return contenders;
@@ -45,18 +45,15 @@ public class TournamentSelection implements ISelection {
 
         ArrayList<Tour> winners = new ArrayList<>();
 
-        for(int k = 0; k < Configuration.instance.FIGHT_COUNT - 1; k++){
-
-            // Only continue if at least 2 contenders remain
-            if(contenders.getSize() > 1){
+        for(int k = 0; k < Configuration.instance.FIGHT_COUNT; k++){
 
                 // Randomly get 2 contenders from the contender list
                 int contender1 = getRandomContender(k);
                 int contender2 = getRandomContender(k);
 
                 // Make sure they are different (otherwise same indexes are common towards the end)
-                while(contender1 == contender2)
-                    contender2 = getRandomContender(k);
+                if(!(contender1 != contender2))
+                    contender2 = randomizeContender(contender1, contender2, k);
 
                 // Get fitness of the contenders
                 double fitnessContender1 = contenders.getSingleTour(contender1).getFitness();
@@ -67,7 +64,6 @@ public class TournamentSelection implements ISelection {
 
                 // Remove current contenders from the contender list
                 removeCurrentContenders(contenders, contender1, contender2);
-            }
         }
         return winners;
     }
@@ -78,7 +74,21 @@ public class TournamentSelection implements ISelection {
      * @return Index for new contender
      */
     private int getRandomContender(int currentFightCount){
-        return Configuration.instance.Random.nextInt(0, Configuration.instance.FIGHT_COUNT - (2 * currentFightCount) - 1);
+        return Configuration.instance.Random.nextInt(0, Configuration.instance.FIGHT_COUNT - currentFightCount);
+    }
+
+    /**
+     * Make sure the 2 contenders are not the same
+     * @param contender1 Given contender
+     * @param contender2 Given contender
+     * @param index Given index
+     * @return Contender that differs from the other contender
+     */
+    private int randomizeContender(int contender1, int contender2, int index){
+        while(contender1 == contender2)
+            contender2 = getRandomContender(index);
+
+        return contender2;
     }
 
     /**

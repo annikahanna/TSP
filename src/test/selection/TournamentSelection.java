@@ -1,6 +1,6 @@
 package test.selection;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import test.TestTourHelper;
 import base.Population;
@@ -44,14 +44,14 @@ public class TournamentSelection {
         double fitnessContender2 = p.getSingleTour(contender2).getFitness();
 
         // Check if fitness scores are calculated correctly
-        Assert.assertEquals(5.962530321754594, fitnessContender1, Configuration.instance.ASSERT_DELTA);
-        Assert.assertEquals(2.229896099026284, fitnessContender2, Configuration.instance.ASSERT_DELTA);
+        assertEquals(5.962530321754594, fitnessContender1, Configuration.instance.ASSERT_DELTA);
+        assertEquals(2.229896099026284, fitnessContender2, Configuration.instance.ASSERT_DELTA);
 
         ArrayList<Tour> winners = new ArrayList<>();
         tournamentTest.chooseWinner(p, winners, fitnessContender1, fitnessContender2, contender1, contender2);
 
         // Check if correct winner is chosen
-        Assert.assertEquals(supposedWinner, winners);
+        assertEquals(supposedWinner, winners);
 
         System.out.println("Stop: Test for chooseWinner successfully!");
     }
