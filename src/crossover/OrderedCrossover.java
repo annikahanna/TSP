@@ -18,8 +18,8 @@ public class OrderedCrossover extends AbstractCrossover {
         MersenneTwisterFast random = Configuration.instance.Random;
 
         int citiesCount = tour01.getSize();
-        int startIndex = random.nextInt(0, citiesCount - 2);
-        int length = random.nextInt(1, citiesCount - startIndex - 1);
+        int startIndex = random.nextInt(0, citiesCount - 1);
+        int length = random.nextInt(1, citiesCount - startIndex);
 
         ArrayList<City> childCities = new ArrayList<>();
 
