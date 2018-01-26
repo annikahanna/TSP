@@ -27,4 +27,9 @@ public class Statistics implements IStatistics {
 
     public void buildMostFrequentFitnessValuesRFile() {
     }
+
+    public static void main(String[] args){
+
+
+    }
 }

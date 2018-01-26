@@ -1,26 +1,29 @@
 package bruteforce;
 
 
+import base.City;
 import data.InstanceReader;
 import data.TSPLIBReader;
 import main.Application;
 import main.Configuration;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
+
 import java.util.*;
 
 public class Permutation {
 
 
-    long dimension = 10000l;
+    long dimension = 1000l;
     double distance = 0;
     ArrayList<CityCombination> ergebnis = new ArrayList<>();
 
     public void generate(TSPLIBReader tsplibReader, boolean isUnitTest) {
-
+        HashSet<ArrayList<Integer>> set = new HashSet<>();
         //Schleife für 4 Mrd. Wiederholungen
-        for (long k = 0l; k < dimension; k++) {
+        while (set.size() < dimension) {
 
             ArrayList<Integer> cities = new ArrayList<>();
             distance = 0;
@@ -43,15 +46,20 @@ public class Permutation {
 
             //Von der letzten Stadt geht man zur ersten zurück
             distance = distance + tsplibReader.getDistance(cities.get(279), cities.get(0));
-            ergebnis.add(new CityCombination(cities, distance));
+            long sizeBefore = set.size();
+            set.add(cities);
 
+
+            if (set.size() > sizeBefore) {
+                ergebnis.add(new CityCombination(cities, distance));
+            }
         }
         if (!isUnitTest) {
             evaluation();
         }
     }
 
-    private void evaluation(){
+    private void evaluation() {
 
         MinimalDistance min = new MinimalDistance();
         Scanner scanner = new Scanner(System.in);
@@ -120,10 +128,11 @@ public class Permutation {
                 System.out.println("Wrong parameter");
         }
     }
+
     Application app = new Application();
 
     @Before
-    public void init(){
+    public void init() {
 
         app.startupHSQLDB();
         InstanceReader instanceReader = new InstanceReader(Configuration.instance.dataFilePath);
@@ -133,7 +142,7 @@ public class Permutation {
     }
 
     @Test
-    public void hasResultSameElementsAsDimension (){
+    public void hasResultSameElementsAsDimension() {
 
         assertEquals(dimension, ergebnis.size());
         app.shutdownHSQLDB();
