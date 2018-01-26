@@ -3,13 +3,11 @@ package test;
 import base.City;
 import base.Tour;
 import main.Configuration;
-import org.w3c.dom.stylesheets.LinkStyle;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class TestTourHelper {
 

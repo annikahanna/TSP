@@ -23,7 +23,7 @@ public class City {
         return y;
     }
 
-    public String toString() {
+    /*public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{ City : ");
         stringBuilder.append("id = ").append(id).append(" - ");
@@ -31,5 +31,9 @@ public class City {
         stringBuilder.append("y = ").append(y);
         stringBuilder.append(" }");
         return stringBuilder.toString();
+    }*/
+
+    public String toString(){
+        return "ID: " + id;
     }
 }
