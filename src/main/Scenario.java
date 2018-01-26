@@ -1,20 +1,23 @@
 package main;
 
+import crossover.ICrossover;
+import mutation.IMutation;
+import selection.ISelection;
+
 public class Scenario {
 
     private String id = "";
-    private String crossover = "";
-    private Double crossoverRatio = 0.0;
-    private String mutation = "";
-    private Double mutationRatio = 0.0;
-    private String selection = "";
-    private Boolean buildStatistics = true;
-    private Boolean isEvaluated = true;
     private String evaluation = "";
     private Long maximumNumberOfEvaluations = 1000000000l;
+    private Double crossoverRatio = 0.0;
+    private Double mutationRatio = 0.0;
+    private Boolean buildStatistics = true;
+    private Boolean isEvaluated = true;
+    private ICrossover crossover;
+    private ISelection selection;
+    private IMutation mutation;
 
     public Scenario() {
-
     }
 
     public String getId() {
@@ -25,12 +28,20 @@ public class Scenario {
         this.id = id;
     }
 
-    public String getCrossover() {
-        return crossover;
+    public String getEvaluation() {
+        return evaluation;
     }
 
-    public void setCrossover(String crossover) {
-        this.crossover = crossover;
+    public void setEvaluation(String evaluation) {
+        this.evaluation = evaluation;
+    }
+
+    public Long getMaximumNumberOfEvaluations() {
+        return maximumNumberOfEvaluations;
+    }
+
+    public void setMaximumNumberOfEvaluations(Long maximumNumberOfEvaluations) {
+        this.maximumNumberOfEvaluations = maximumNumberOfEvaluations;
     }
 
     public Double getCrossoverRatio() {
@@ -41,28 +52,12 @@ public class Scenario {
         this.crossoverRatio = crossoverRatio;
     }
 
-    public String getMutation() {
-        return mutation;
-    }
-
-    public void setMutation(String mutation) {
-        this.mutation = mutation;
-    }
-
     public Double getMutationRatio() {
         return mutationRatio;
     }
 
     public void setMutationRatio(Double mutationRatio) {
         this.mutationRatio = mutationRatio;
-    }
-
-    public String getSelection() {
-        return selection;
-    }
-
-    public void setSelection(String selection) {
-        this.selection = selection;
     }
 
     public Boolean getBuildStatistics() {
@@ -81,20 +76,28 @@ public class Scenario {
         isEvaluated = evaluated;
     }
 
-    public String getEvaluation() {
-        return evaluation;
+    public ICrossover getCrossover() {
+        return crossover;
     }
 
-    public void setEvaluation(String evaluation) {
-        this.evaluation = evaluation;
+    public void setCrossover(ICrossover crossover) {
+        this.crossover = crossover;
     }
 
-    public Long getMaximumNumberOfEvaluations() {
-        return maximumNumberOfEvaluations;
+    public ISelection getSelection() {
+        return selection;
     }
 
-    public void setMaximumNumberOfEvaluations(Long maximumNumberOfEvaluations) {
-        this.maximumNumberOfEvaluations = maximumNumberOfEvaluations;
+    public void setSelection(ISelection selection) {
+        this.selection = selection;
+    }
+
+    public IMutation getMutation() {
+        return mutation;
+    }
+
+    public void setMutation(IMutation mutation) {
+        this.mutation = mutation;
     }
 
 }
