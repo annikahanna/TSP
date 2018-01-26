@@ -23,7 +23,7 @@ public class RouletteWheelSelection implements ISelection {
         return selectedTours;
     }
 
-    private double calculatePopulationFitness(Population population)
+    public double calculatePopulationFitness(Population population)
     {
         double populationFitness = 0;
         for (int i=0; i < population.getSize(); i++)
@@ -79,7 +79,7 @@ public class RouletteWheelSelection implements ISelection {
         return Math.round(Configuration.instance.Random.nextDouble() * 1000.0) / 1000.0;
     }
 
-    private boolean alreadySelected(ArrayList<Tour> selectedTours, Tour newTour)
+    public boolean alreadySelected(ArrayList<Tour> selectedTours, Tour newTour)
     {
         for(int i=0; i<selectedTours.size(); i++)
         {
