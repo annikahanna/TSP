@@ -1,11 +1,10 @@
 package bruteforce;
 
-import base.City;
+
 import data.InstanceReader;
 import data.TSPLIBReader;
 import main.Application;
 import main.Configuration;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -14,7 +13,7 @@ import java.util.*;
 public class Permutation {
 
 
-    long dimension = 20l;
+    long dimension = 10000l;
     double distance = 0;
     ArrayList<CityCombination> ergebnis = new ArrayList<>();
 
@@ -47,12 +46,13 @@ public class Permutation {
             ergebnis.add(new CityCombination(cities, distance));
 
         }
-        if (!isUnitTest)
+        if (!isUnitTest) {
             evaluation();
-
+        }
     }
 
     private void evaluation(){
+
         MinimalDistance min = new MinimalDistance();
         Scanner scanner = new Scanner(System.in);
         System.out.println("What do you want to analyze? Please insert parameter.");
