@@ -9,7 +9,7 @@ import static java.lang.Math.toIntExact;
 public class Permutation {
 
 
-    long dimension = 1000l;
+    long dimension = 10000l;
 
     double distance = 0;
 
