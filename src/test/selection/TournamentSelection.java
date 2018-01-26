@@ -16,7 +16,6 @@ public class TournamentSelection {
         System.out.println("Start: Test for chooseWinner...");
 
         selection.TournamentSelection tournamentTest = new selection.TournamentSelection();
-        TestTourHelper th = new TestTourHelper();
 
         // Predetermined city values
         double[] cityXy = { 0.8508406745503213, 0.62015861142947,
@@ -31,7 +30,7 @@ public class TournamentSelection {
                             0.5769226931269651, 0.04681994205305173};
 
         // Create population with given city coods
-        Population p = th.getAscendingPopulation(2,10, false, cityXy);
+        Population p = TestTourHelper.getAscendingPopulation(2,10, false, cityXy);
 
         // Pick supposed winner
         ArrayList<Tour> supposedWinner = new ArrayList<>();
@@ -44,8 +43,8 @@ public class TournamentSelection {
         double fitnessContender2 = p.getSingleTour(contender2).getFitness();
 
         // Check if fitness scores are calculated correctly
-        assertEquals(5.962530321754594, fitnessContender1, Configuration.instance.ASSERT_DELTA);
-        assertEquals(2.229896099026284, fitnessContender2, Configuration.instance.ASSERT_DELTA);
+        assertEquals(6.44291702139059, fitnessContender1, Configuration.instance.ASSERT_DELTA);
+        assertEquals(3.071682956611869, fitnessContender2, Configuration.instance.ASSERT_DELTA);
 
         ArrayList<Tour> winners = new ArrayList<>();
         tournamentTest.chooseWinner(p, winners, fitnessContender1, fitnessContender2, contender1, contender2);
@@ -62,10 +61,9 @@ public class TournamentSelection {
         System.out.println("Start: Test for doSelection...");
 
         selection.TournamentSelection doSelectionTest = new selection.TournamentSelection();
-        TestTourHelper th = new TestTourHelper();
 
         // Create random population
-        Population p = th.getAscendingPopulation(100,280, true, null);
+        Population p = TestTourHelper.getAscendingPopulation(100,280, true, null);
 
         doSelectionTest.doSelection(p);
 
