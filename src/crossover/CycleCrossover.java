@@ -6,8 +6,9 @@ import base.Tour;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CycleCrossover implements ICrossover {
+public class CycleCrossover extends AbstractCrossover {
 
+    @Override
     public Tour doCrossover(Tour tour01, Tour tour02) {
 
         ArrayList<City> newTourArray = new ArrayList<>();
@@ -31,11 +32,6 @@ public class CycleCrossover implements ICrossover {
         Tour newTour = new Tour();
         newTour.setCities(newTourArray);
         return newTour;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName();
     }
 
 }

@@ -14,6 +14,12 @@ import java.util.Random;
 public class TestTourHelper {
 
     /**
+     * Don´t use it!
+     */
+    private TestTourHelper() {
+    }
+
+    /**
      * Creates a dummy tour with {@code size} cities with ascending city ids starting with 0
      *
      * @param size count of cities
@@ -56,7 +62,7 @@ public class TestTourHelper {
         MersenneTwisterFast random = Configuration.instance.Random;
         List<City> generatedCitites = new ArrayList<>();
         for (int i = 0; i < count; i++)
-            generatedCitites.add(new City(i, random.nextDouble(0, 200), random.nextDouble(0, 200)));
+            generatedCitites.add(new City(i, random.nextDouble() * 200, random.nextDouble() * 200));
         if (randomize)
             Collections.shuffle(generatedCitites, random);
         return generatedCitites;

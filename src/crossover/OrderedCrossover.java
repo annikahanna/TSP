@@ -11,8 +11,9 @@ import java.util.List;
 /**
  * Implementation of the OrderedCrossover algorithm
  */
-public class OrderedCrossover implements ICrossover {
+public class OrderedCrossover extends AbstractCrossover {
 
+    @Override
     public Tour doCrossover(Tour tour01, Tour tour02) {
         MersenneTwisterFast random = Configuration.instance.Random;
 
@@ -37,11 +38,6 @@ public class OrderedCrossover implements ICrossover {
         Tour newTour = new Tour();
         newTour.setCities(childCities);
         return newTour;
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName();
     }
 
 }

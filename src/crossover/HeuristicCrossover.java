@@ -2,17 +2,16 @@ package crossover;
 
 import base.City;
 import base.Tour;
-import main.Configuration;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class HeuristicCrossover implements ICrossover {
+public class HeuristicCrossover extends AbstractCrossover {
 
+    @Override
     public Tour doCrossover(Tour tour01, Tour tour02) {
 
-        City startCity = getRandomCity(tour01.getCities());
-
+        City startCity = CrossoverHelper.getRandomCity(tour01.getCities());
         Tour childTour = new Tour();
         ArrayList<City> citiesLeft = new ArrayList<>(tour01.getCities());
         citiesLeft.remove(startCity);
@@ -30,10 +29,10 @@ public class HeuristicCrossover implements ICrossover {
             City rightNeighbour2 = tour01.getCity((index + 1) > tour01.getSize() - 1 ? 0 : index + 1);
 
             TreeMap<Double, City> map = new TreeMap<>();
-            map.put(getCityDistance(momCity, leftNeighbour1), leftNeighbour1);
-            map.put(getCityDistance(momCity, rightNeighbour1), rightNeighbour1);
-            map.put(getCityDistance(momCity, leftNeighbour2), leftNeighbour2);
-            map.put(getCityDistance(momCity, rightNeighbour2), rightNeighbour2);
+            map.put(CrossoverHelper.getCityDistance(momCity, leftNeighbour1), leftNeighbour1);
+            map.put(CrossoverHelper.getCityDistance(momCity, rightNeighbour1), rightNeighbour1);
+            map.put(CrossoverHelper.getCityDistance(momCity, leftNeighbour2), leftNeighbour2);
+            map.put(CrossoverHelper.getCityDistance(momCity, rightNeighbour2), rightNeighbour2);
 
             //pull 1st Entry
             City neighbour = map.pollFirstEntry().getValue();
@@ -48,27 +47,13 @@ public class HeuristicCrossover implements ICrossover {
                     childTour.addCity(neighbour);
                     citiesLeft.remove(neighbour);
                 } else {
-                    City randomCity = getRandomCity(citiesLeft);
+                    City randomCity = CrossoverHelper.getRandomCity(citiesLeft);
                     childTour.addCity(randomCity);
                     citiesLeft.remove(randomCity);
                 }
             }
         }
         return childTour;
-    }
-
-    private static City getRandomCity(ArrayList<City> cities) {
-        int randomIndex = Configuration.instance.Random.nextInt(0, cities.size() - 1);
-        return cities.get(randomIndex);
-    }
-
-    private static double getCityDistance(City c1, City c2) {
-        return Tour.euclideanDistance(c1.getX(), c1.getY(), c2.getX(), c2.getY());
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName();
     }
 
 }
