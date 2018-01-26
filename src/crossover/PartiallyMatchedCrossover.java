@@ -23,8 +23,8 @@ public class PartiallyMatchedCrossover implements ICrossover {
         //System.out.println("crossoverpoint1:" + crossoverpoint1 + " crossoverpoint2: "+ crossoverpoint2);
 
         /* Die Eltern direkt in die Kinder speichern */
-        ArrayList<City> tour1Cities = tour01.getCities();
-        ArrayList<City> tour2Cities = tour02.getCities();
+        ArrayList<City> tour1Cities = new ArrayList<>(tour01.getCities());
+        ArrayList<City> tour2Cities = new ArrayList<>(tour02.getCities());
 
         /*Crossoverbereich in den Eltern austauschen */
         City temp;
