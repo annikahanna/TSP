@@ -1,12 +1,15 @@
 package test.crossover;
 
+import base.City;
 import base.Tour;
 import crossover.ICrossover;
-import org.junit.Assert;
 import org.junit.Test;
 import test.TestTourHelper;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertNotEquals;
 
 public class OrderedCrossover {
 
@@ -18,15 +21,18 @@ public class OrderedCrossover {
         ICrossover orderedCrossover = new crossover.OrderedCrossover();
 
         Tour tour01 = new Tour();
-        tour01.setCities(HelperMethods.generateCities(10));
         Tour tour02 = new Tour();
-        tour02.setCities(HelperMethods.generateCities(10));
+
+        ArrayList<City> randomizedCities1 = (ArrayList<City>) TestTourHelper.generateRandomCities(280, true);
+        ArrayList<City> randomizedCities2 = (ArrayList<City>) TestTourHelper.randomizeCities(randomizedCities1);
+        tour01.setCities(randomizedCities1);
+        tour02.setCities(randomizedCities2);
 
         List<Integer> idsBefore = TestTourHelper.getTourCityIds(tour01);
         Tour newTour = orderedCrossover.doCrossover(tour01, tour02);
         List<Integer> idsAfter = TestTourHelper.getTourCityIds(newTour);
-
-        Assert.assertNotEquals(idsAfter, idsBefore);
+        
+        assertNotEquals(idsAfter, idsBefore);
     }
 
 }
