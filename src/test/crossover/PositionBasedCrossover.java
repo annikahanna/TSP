@@ -1,12 +1,13 @@
 package test.crossover;
 
-        import base.City;
-        import base.Tour;
-        import org.junit.*;
+import base.City;
+import base.Tour;
+import org.junit.Before;
+import org.junit.Test;
 
-        import java.util.HashSet;
+import java.util.HashSet;
 
-        import static org.junit.Assert.*;
+import static org.junit.Assert.*;
 
 public class PositionBasedCrossover {
     Tour parent1;

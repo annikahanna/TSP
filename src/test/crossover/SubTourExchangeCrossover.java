@@ -2,9 +2,9 @@ package test.crossover;
 
 import base.City;
 import base.Tour;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
