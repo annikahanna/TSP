@@ -3,23 +3,22 @@ package crossover;
 import base.City;
 import base.Pair;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-public class PartiallyMatchedCrossover implements ICrossover {
+public class PartiallyMatchedCrossover extends AbstractCrossover {
 
     private ArrayList<Pair> mapping = new ArrayList<>();
-
 
     public Tour doCrossover(Tour tour01, Tour tour02) {
         int crossoverpoint1, crossoverpoint2;
 
         /* Zufällig 2 Crossoverpunkte wählen */
-        MersenneTwisterFast rand = new MersenneTwisterFast();
-        crossoverpoint1 = rand.nextInt(0, tour01.getCities().size()-1);
-        crossoverpoint2 = rand.nextInt(crossoverpoint1+1, tour01.getCities().size());
+        MersenneTwisterFast rand = Configuration.instance.Random;
+        crossoverpoint1 = rand.nextInt(0, tour01.getCities().size() - 1);
+        crossoverpoint2 = rand.nextInt(crossoverpoint1 + 1, tour01.getCities().size());
         //System.out.println("crossoverpoint1:" + crossoverpoint1 + " crossoverpoint2: "+ crossoverpoint2);
 
         /* Die Eltern direkt in die Kinder speichern */
@@ -91,7 +90,7 @@ public class PartiallyMatchedCrossover implements ICrossover {
         Tour child2 = new Tour();
         child2.setCities(tour2Cities);
 
-/*        System.out.println(Arrays.toString(child1.getCities().toArray()) + "\n" + Arrays.toString(child2.getCities().toArray()));*/
+        /*        System.out.println(Arrays.toString(child1.getCities().toArray()) + "\n" + Arrays.toString(child2.getCities().toArray()));*/
 
         /* Das fittere Kind auswählen und zurückgeben*/
         if (child1.compareTo(child2) != 1) {
@@ -99,10 +98,6 @@ public class PartiallyMatchedCrossover implements ICrossover {
         } else {
             return child2;
         }
-
     }
 
-    public String toString() {
-        return getClass().getSimpleName();
-    }
 }
