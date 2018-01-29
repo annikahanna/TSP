@@ -2,12 +2,14 @@ package crossover;
 
 import base.City;
 import base.Tour;
+import main.Configuration;
 import random.MersenneTwisterFast;
 
 import java.util.ArrayList;
 
-public class SubTourExchangeCrossover implements ICrossover {
-    public Tour doCrossover(Tour tour01,Tour tour02) {
+public class SubTourExchangeCrossover extends AbstractCrossover {
+
+    public Tour doCrossover(Tour tour01, Tour tour02) {
 
         ArrayList<City> tour01Cities = new ArrayList<>(tour01.getCities());
         ArrayList<City> tour02Cities = new ArrayList<>(tour02.getCities());
@@ -15,10 +17,10 @@ public class SubTourExchangeCrossover implements ICrossover {
         childTour01.setCities(tour01Cities);
         Tour childTour02 = new Tour();
         childTour02.setCities(tour02Cities);
-        MersenneTwisterFast randomizer = new MersenneTwisterFast();
+        MersenneTwisterFast randomizer = Configuration.instance.Random;
 
         //set random search-width, but never the same size as the parent widths and minimum width 2
-        int width = randomizer.nextInt(tour01Cities.size() - 2)  + 2;
+        int width = randomizer.nextInt(tour01Cities.size() - 2) + 2;
 
         //set random indexes for both ArrayLists (attention to the right bound because of the width of the subtours!)
         int index01 = randomizer.nextInt(tour01Cities.size() - width);
@@ -62,7 +64,7 @@ public class SubTourExchangeCrossover implements ICrossover {
                 //new index has to be in bounds and starts after the max-index from the min-index 0 (loop)
                 index01 = (index01 + 1) % (tour01Cities.size() - width + 1);
             }
-            while (index01original != index01) ;
+            while (index01original != index01);
 
             //if no-match, reduce the width
             width--;
@@ -78,7 +80,4 @@ public class SubTourExchangeCrossover implements ICrossover {
         }
     }
 
-    public String toString() {
-        return getClass().getSimpleName();
-    }
 }
