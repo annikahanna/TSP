@@ -18,14 +18,14 @@ public class Permutation {
 
     long dimension = 1000l;
     double distance = 0;
-    ArrayList<CityCombination> ergebnis = new ArrayList<>();
+    ArrayList<CityCombination> ergebnis = new ArrayList<CityCombination>();
 
     public void generate(TSPLIBReader tsplibReader, boolean isUnitTest) {
-        HashSet<ArrayList<Integer>> set = new HashSet<>();
+        HashSet<ArrayList<Integer>> set = new HashSet<ArrayList<Integer>>();
         //Schleife für 4 Mrd. Wiederholungen
         while (set.size() < dimension) {
 
-            ArrayList<Integer> cities = new ArrayList<>();
+            ArrayList<Integer> cities = new ArrayList<Integer>();
             distance = 0;
 
             //Schleife die, die Liste füllt
@@ -68,66 +68,61 @@ public class Permutation {
         String eval = scanner.nextLine();
 
         //Evaluierung der Eingabe
-        switch (eval) {
-            case "all":
-                CityCombination tour = min.sort(ergebnis);
-                System.out.println(tour.getDistance());
+        if (eval.equals("all")) {
+            CityCombination tour = min.sort(ergebnis);
+            System.out.println(tour.getDistance());
 
-                for (int q = 0; q < tour.getCities().size(); q++) {
-                    System.out.println(tour.getCities().get(q));
-                }
+            for (int q = 0; q < tour.getCities().size(); q++) {
+                System.out.println(tour.getCities().get(q));
+            }
+        } else if (eval.equals("first")) {
+            ArrayList<CityCombination> first = new ArrayList<CityCombination>();
 
-                break;
-            case "first":
-                ArrayList<CityCombination> first = new ArrayList<>();
+            for (int v = 0; v < ergebnis.size() / 4; v++) {
+                first.add(ergebnis.get(v));
+            }
 
-                for (int v = 0; v < ergebnis.size() / 4; v++) {
-                    first.add(ergebnis.get(v));
-                }
+            CityCombination tourFirst = min.sort(first);
+            System.out.println(tourFirst.getDistance());
 
-                CityCombination tourFirst = min.sort(first);
-                System.out.println(tourFirst.getDistance());
+            for (int q = 0; q < tourFirst.getCities().size(); q++) {
+                System.out.println(tourFirst.getCities().get(q));
+            }
 
-                for (int q = 0; q < tourFirst.getCities().size(); q++) {
-                    System.out.println(tourFirst.getCities().get(q));
-                }
+        } else if (eval.equals("middle")) {
+            ArrayList<CityCombination> middle = new ArrayList<CityCombination>();
 
-                break;
-            case "middle":
-                ArrayList<CityCombination> middle = new ArrayList<>();
-
-                for (int v = ergebnis.size() / 4; v < ergebnis.size() / 4 * 3; v++) {
-                    middle.add(ergebnis.get(v));
-                }
+            for (int v = ergebnis.size() / 4; v < ergebnis.size() / 4 * 3; v++) {
+                middle.add(ergebnis.get(v));
+            }
 
 
-                CityCombination tourMiddle = min.sort(middle);
-                System.out.println(tourMiddle.getDistance());
+            CityCombination tourMiddle = min.sort(middle);
+            System.out.println(tourMiddle.getDistance());
 
-                for (int q = 0; q < tourMiddle.getCities().size(); q++) {
-                    System.out.println(tourMiddle.getCities().get(q));
-                }
+            for (int q = 0; q < tourMiddle.getCities().size(); q++) {
+                System.out.println(tourMiddle.getCities().get(q));
+            }
 
-                break;
-            case "last":
-                ArrayList<CityCombination> last = new ArrayList<>();
+        } else if (eval.equals("last")) {
+            ArrayList<CityCombination> last = new ArrayList<CityCombination>();
 
-                for (int v = ergebnis.size() / 4 * 3; v < ergebnis.size(); v++) {
-                    last.add(ergebnis.get(v));
-                }
+            for (int v = ergebnis.size() / 4 * 3; v < ergebnis.size(); v++) {
+                last.add(ergebnis.get(v));
+            }
 
-                CityCombination tourLast = min.sort(last);
-                System.out.println(tourLast.getDistance());
+            CityCombination tourLast = min.sort(last);
+            System.out.println(tourLast.getDistance());
 
-                for (int q = 0; q < tourLast.getCities().size(); q++) {
-                    System.out.println(tourLast.getCities().get(q));
-                }
+            for (int q = 0; q < tourLast.getCities().size(); q++) {
+                System.out.println(tourLast.getCities().get(q));
+            }
 
-                break;
-            default:
-                System.out.println("Wrong parameter");
+        } else {
+            System.out.println("Wrong parameter");
         }
     }
+
 
     Application app = new Application();
 

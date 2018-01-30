@@ -13,7 +13,7 @@ public class HeuristicCrossover extends AbstractCrossover {
 
         City startCity = CrossoverHelper.getRandomCity(tour01.getCities());
         Tour childTour = new Tour();
-        ArrayList<City> citiesLeft = new ArrayList<>(tour01.getCities());
+        ArrayList<City> citiesLeft = new ArrayList<City>(tour01.getCities());
         citiesLeft.remove(startCity);
         childTour.addCity(startCity);
 
@@ -28,7 +28,7 @@ public class HeuristicCrossover extends AbstractCrossover {
             City leftNeighbour2 = tour02.getCity((index - 1) < 0 ? tour02.getSize() - 1 : index - 1);
             City rightNeighbour2 = tour02.getCity((index + 1) > tour02.getSize() - 1 ? 0 : index + 1);
 
-            TreeMap<Double, City> map = new TreeMap<>();
+            TreeMap<Double, City> map = new TreeMap<Double, City>();
             map.put(CrossoverHelper.getCityDistance(momCity, leftNeighbour1), leftNeighbour1);
             map.put(CrossoverHelper.getCityDistance(momCity, rightNeighbour1), rightNeighbour1);
             map.put(CrossoverHelper.getCityDistance(momCity, leftNeighbour2), leftNeighbour2);

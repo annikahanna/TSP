@@ -12,5 +12,6 @@
     <orderEntry type="library" name="hsqldb" level="project" />
     <orderEntry type="library" name="hamcrest-core" level="project" />
     <orderEntry type="library" name="junit" level="project" />
+    <orderEntry type="library" name="gson-2.8.2" level="project" />
   </component>
 </module>

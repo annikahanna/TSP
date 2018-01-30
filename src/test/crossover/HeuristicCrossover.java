@@ -52,7 +52,7 @@ public class HeuristicCrossover {
 
     @Test
     public void doCrossoverCheckForDuplicates() {
-        HashSet<City> tempResult = new HashSet<>(childTour.getCities());
+        HashSet<City> tempResult = new HashSet<City>(childTour.getCities());
         assertEquals(tour01.getSize(), tempResult.size());
     }
 

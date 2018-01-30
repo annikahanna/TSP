@@ -40,7 +40,7 @@ public class CycleCrossover {
     @Test
     public void testDoCrossoverSpecificResult() {
 
-        ArrayList<City> tourList01 = new ArrayList<>();
+        ArrayList<City> tourList01 = new ArrayList<City>();
         tourList01.add(cities.get(1));
         tourList01.add(cities.get(2));
         tourList01.add(cities.get(3));
@@ -51,7 +51,7 @@ public class CycleCrossover {
         tourList01.add(cities.get(8));
         tourList01.add(cities.get(0));
 
-        ArrayList<City> tourList02 = new ArrayList<>();
+        ArrayList<City> tourList02 = new ArrayList<City>();
         tourList02.add(cities.get(4));
         tourList02.add(cities.get(1));
         tourList02.add(cities.get(2));
@@ -62,7 +62,7 @@ public class CycleCrossover {
         tourList02.add(cities.get(3));
         tourList02.add(cities.get(5));
 
-        ArrayList<City> tourListRes = new ArrayList<>();
+        ArrayList<City> tourListRes = new ArrayList<City>();
         tourListRes.add(cities.get(1));
         tourListRes.add(cities.get(2));
         tourListRes.add(cities.get(3));
@@ -124,7 +124,7 @@ public class CycleCrossover {
     @Test
     public void doCrossoverCheckForDuplicates() {
         Tour result = cc.doCrossover(testTour01, testTour02);
-        HashSet<City> tempResult = new HashSet<>(result.getCities());
+        HashSet<City> tempResult = new HashSet<City>(result.getCities());
         assertEquals(10, tempResult.size());
     }
 

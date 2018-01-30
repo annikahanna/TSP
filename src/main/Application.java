@@ -1,15 +1,23 @@
 package main;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+
+import data.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import base.City;
+import base.Population;
+import base.Tour;
 import bruteforce.Permutation;
 import crossover.ICrossover;
-import crossover.PartiallyMatchedCrossover;
-import data.HSQLDBManager;
-import data.InstanceReader;
-import data.TSPLIBReader;
 import mutation.IMutation;
+import random.MersenneTwisterFast;
 import selection.ISelection;
 
 public class Application {
@@ -55,7 +63,7 @@ public class Application {
         instanceReader.close();
 
         System.out.println();
-        permutation.generate(tspLibReader, false);
+       // permutation.generate(tspLibReader, false);
     }
 
     public void initConfiguration() {
@@ -63,10 +71,62 @@ public class Application {
         System.out.println();
     }
 
-    public void execute() {
-        System.out.println("--- GeneticAlgorithm.execute()");
-        HSQLDBManager.instance.insert("hello world");
+    public Population startPopulation() {
+        System.out.println("--- GeneticAlgorithm.startPopulation()");
+
+        Population population = new Population();
+        ArrayList<Tour> tours = new ArrayList<Tour>();
+        MersenneTwisterFast randomizer = new MersenneTwisterFast();
+        int rounds = 5;
+
+        for (int i = 0; i < rounds; i++) {
+            Tour currentTour = new Tour();
+            ArrayList<City> availableCitiesForCurrentTour = availableCities;
+            for (int y = 0; y < rounds; y++) {
+                int r = 0;
+                if (availableCitiesForCurrentTour.size() - 1 != 0) {
+                    r = randomizer.nextInt(availableCitiesForCurrentTour.size() - 1);
+
+
+                    currentTour.addCity(availableCitiesForCurrentTour.get(r));
+                    availableCitiesForCurrentTour.remove(r);
+                }
+            }
+                if (tours.contains(currentTour)) {
+                    i--;
+                    continue;
+                } else {
+                    tours.add(currentTour);
+                }
+
+            population.setTours(tours);
+        }
+        return population;
+
     }
+
+    public void execute()  {
+        System.out.println("--- GeneticAlgorithm.execute()");
+        Population start = startPopulation();
+        JSONParser parser = new JSONParser();
+        JSONArray scenarios = new JSONArray();
+
+       try {
+           scenarios = (JSONArray) parser.parse(new FileReader("D:/tsp/01_tsp/configuration/genetic_algorithm_tsp.json"));
+       }
+       catch (Exception e) {
+           e.getStackTrace();
+       }
+
+      for(int i = 0; i< 25; i++) {
+           JSONObject scenario = (JSONObject) scenarios.get(i);
+           while(s)
+
+
+
+       }
+    }
+
 
     public static void main(String... args) {
 

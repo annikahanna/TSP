@@ -3,7 +3,7 @@ package base;
 import java.util.ArrayList;
 
 public class Tour implements Comparable<Tour> {
-    private ArrayList<City> cities = new ArrayList<>();
+    private ArrayList<City> cities = new ArrayList<City>();
 
     public ArrayList<City> getCities() {
         return cities;

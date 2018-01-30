@@ -46,7 +46,7 @@ public class RouletteWheelSelection implements ISelection {
     private ArrayList<Tour> performSelection(Population population, double[] rouletteWheel)
     {
         ArrayList<Tour> selectedTours;
-        selectedTours = new ArrayList<>();
+        selectedTours = new ArrayList<Tour>();
 
         int c = 1, i = 0;
         double r = randomDouble();

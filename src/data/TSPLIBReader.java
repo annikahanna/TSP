@@ -2,6 +2,7 @@ package data;
 
 import java.util.ArrayList;
 import base.City;
+import base.Tour;
 
 public class TSPLIBReader {
     protected InstanceReader instanceReader;
@@ -12,7 +13,7 @@ public class TSPLIBReader {
 
     public TSPLIBReader(InstanceReader instanceReader) {
         this.instanceReader = instanceReader;
-        cities = new ArrayList<>();
+        cities = new ArrayList<City>();
         readHeader();
         readCoordinates();
         convertCoordinatesToDistance();

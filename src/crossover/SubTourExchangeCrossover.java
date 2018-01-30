@@ -11,8 +11,8 @@ public class SubTourExchangeCrossover extends AbstractCrossover {
 
     public Tour doCrossover(Tour tour01, Tour tour02) {
 
-        ArrayList<City> tour01Cities = new ArrayList<>(tour01.getCities());
-        ArrayList<City> tour02Cities = new ArrayList<>(tour02.getCities());
+        ArrayList<City> tour01Cities = new ArrayList<City>(tour01.getCities());
+        ArrayList<City> tour02Cities = new ArrayList<City>(tour02.getCities());
         Tour childTour01 = new Tour();
         childTour01.setCities(tour01Cities);
         Tour childTour02 = new Tour();
@@ -34,8 +34,8 @@ public class SubTourExchangeCrossover extends AbstractCrossover {
             do {
                 //... and search for a match in the tour02Cities
                 do {
-                    ArrayList<City> subtour01 = new ArrayList<>();
-                    ArrayList<City> subtour02 = new ArrayList<>();
+                    ArrayList<City> subtour01 = new ArrayList<City>();
+                    ArrayList<City> subtour02 = new ArrayList<City>();
                     for (int i = width - 1; i >= 0; i--) {
                         subtour01.add(tour01Cities.get(i + index01));
                         subtour02.add(tour02Cities.get(i + index02));

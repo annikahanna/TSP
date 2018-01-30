@@ -43,7 +43,7 @@ public class TournamentSelection implements ISelection {
      */
     private ArrayList<Tour> mortalKombat(Population contenders){
 
-        ArrayList<Tour> winners = new ArrayList<>();
+        ArrayList<Tour> winners = new ArrayList<Tour>();
 
         for(int k = 0; k < Configuration.instance.FIGHT_COUNT; k++){
 

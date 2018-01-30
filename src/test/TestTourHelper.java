@@ -41,7 +41,7 @@ public class TestTourHelper {
      * @return
      */
     public static List<Integer> getTourCityIds(Tour tour) {
-        ArrayList<Integer> cityIds = new ArrayList<>();
+        ArrayList<Integer> cityIds = new ArrayList<Integer>();
 
         for (City city : tour.getCities()) {
             cityIds.add(city.getId());
@@ -59,7 +59,7 @@ public class TestTourHelper {
      */
     public static List<City> generateRandomCities(int count, boolean randomize) {
         MersenneTwisterFast random = Configuration.instance.Random;
-        List<City> generatedCitites = new ArrayList<>();
+        List<City> generatedCitites = new ArrayList<City>();
         for (int i = 0; i < count; i++)
             generatedCitites.add(new City(i, random.nextDouble() * 200, random.nextDouble() * 200));
         if (randomize)
@@ -84,7 +84,7 @@ public class TestTourHelper {
      * @return a new List containing the randomized cities
      */
     public static List<City> randomizeCities(List<City> citiesToRandomize) {
-        List<City> randomizedCities = new ArrayList<>(citiesToRandomize);
+        List<City> randomizedCities = new ArrayList<City>(citiesToRandomize);
         Collections.shuffle(randomizedCities, Configuration.instance.Random);
         return randomizedCities;
     }

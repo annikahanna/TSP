@@ -13,7 +13,7 @@ public class DisplacementMutation implements IMutation {
         int count = Configuration.instance.Random.nextInt(1, cities.size());
         int index = Configuration.instance.Random.nextInt(cities.size() - count + 1);
 
-        ArrayList<City> selectedCities = new ArrayList<>(cities.subList(index, index + count - 1));
+        ArrayList<City> selectedCities = new ArrayList<City>(cities.subList(index, index + count - 1));
 
         for(City city : selectedCities) {
             cities.remove(city);

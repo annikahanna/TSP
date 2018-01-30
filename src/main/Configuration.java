@@ -1,6 +1,9 @@
 package main;
 
+import base.City;
 import random.MersenneTwisterFast;
+
+import java.util.ArrayList;
 
 public enum Configuration {
     instance;
@@ -12,8 +15,9 @@ public enum Configuration {
     public String dataFilePath = dataDirectory + "TSP280.txt";
 
     public String databaseFile = dataDirectory + "datastore.db";
-
+    public ArrayList<City> availableCities;
     public MersenneTwisterFast Random = new MersenneTwisterFast();
+    public double optimum = 2579;
 
     public final int CONTENDER_COUNT = 52;
     public final int FIGHT_COUNT = CONTENDER_COUNT / 2;
