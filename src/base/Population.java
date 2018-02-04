@@ -29,6 +29,10 @@ public class Population {
         return this.tours.get(index);
     }
 
+    public void setSingleTour(int index, Tour tour){
+        this.tours.set(index, tour);
+    }
+
     public void removeSingleTour(int index) {
         this.tours.remove(index);
     }
