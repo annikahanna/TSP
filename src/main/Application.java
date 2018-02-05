@@ -79,12 +79,12 @@ public class Application {
         Population population = new Population();
         ArrayList<Tour> tours = new ArrayList<Tour>();
         MersenneTwisterFast randomizer = new MersenneTwisterFast();
-        int rounds = 279;
 
 
         for (int i = 0; i < 5; i++) {
             Tour tour = new Tour();
-            ArrayList<City> cities = availableCities;
+            ArrayList<City> cities = new ArrayList<City>(availableCities);
+            int rounds = 279;
             for (int j = 0; j < 280; j++) {
                 rounds--;
                 int rand = randomizer.nextInt(0, rounds);
@@ -121,7 +121,7 @@ public class Application {
         JSONArray scenarios = new JSONArray();
 
         try {
-            scenarios = (JSONArray) parser.parse(new FileReader("D:/tsp/01_tsp/configuration/genetic_algorithm_tsp.json"));
+            scenarios = (JSONArray) parser.parse(new FileReader(Configuration.instance.userDirectory + Configuration.instance.fileSeparator + "configuration" + Configuration.instance.fileSeparator + "genetic_algorithm_tsp.json" ));
         } catch (Exception e) {
             e.getStackTrace();
         }
