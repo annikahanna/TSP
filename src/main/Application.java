@@ -153,8 +153,9 @@ public class Application {
                 e.getStackTrace();
             }
             Tour bestTour = getBestTour(start);
-            while (bestTour.getFitness() < Configuration.instance.optimum) {
+            while (bestTour.getFitness() > Configuration.instance.optimum) {
                 select = selection.doSelection(scenarioPopulation);
+                System.out.println("selction done");
                 cross = crossover.doCrossover(select.get(0), select.get(1));
                 if (mutationrate % 200 == 0) {
                     cross = mutation.doMutation(cross);
@@ -168,7 +169,7 @@ public class Application {
                 }
                 System.out.println(bestTour.getFitness());
             }
-            System.out.println("Best Tour found with the value of" + bestTour.getFitness());
+            System.out.println("Best Tour found with the value of " + bestTour.getFitness());
 
         }
     }
