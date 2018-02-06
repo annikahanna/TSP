@@ -48,7 +48,7 @@ public class GSONUtils {
             jsonObject.add("crossover", jsonSerializationContext.serialize(scenario.getCrossover().getClass().getName(), String.class));
             jsonObject.add("mutation", jsonSerializationContext.serialize(scenario.getMutation().getClass().getName(), String.class));
             jsonObject.add("selection", jsonSerializationContext.serialize(scenario.getSelection().getClass().getName(), String.class));
-            jsonObject.add("evaluation", jsonSerializationContext.serialize(scenario.getEvaluation(), String.class)); //TODO was hiermit ?!
+            jsonObject.add("evaluation", jsonSerializationContext.serialize(scenario.getEvaluation(), String.class));
             jsonObject.add("id", jsonSerializationContext.serialize(scenario.getId(), String.class));
             jsonObject.add("maximumNumberOfEvaluations", jsonSerializationContext.serialize(scenario.getMaximumNumberOfEvaluations(), Long.class));
             jsonObject.add("crossoverRatio", jsonSerializationContext.serialize(scenario.getCrossoverRatio(), Double.class));
@@ -66,7 +66,7 @@ public class GSONUtils {
             } catch (Exception e) {
                 throw new JsonParseException(e);
             }
-            createdScenario.setEvaluation(jsonElement.getAsJsonObject().get("evaluation").getAsString()); //TODO was hiermit ?!
+            createdScenario.setEvaluation(jsonElement.getAsJsonObject().get("evaluation").getAsString());
             createdScenario.setId(jsonElement.getAsJsonObject().get("id").getAsString());
             createdScenario.setMaximumNumberOfEvaluations(jsonElement.getAsJsonObject().get("maximumNumberOfEvaluations").getAsLong());
             createdScenario.setCrossoverRatio(jsonElement.getAsJsonObject().get("crossoverRatio").getAsDouble());
