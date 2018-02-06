@@ -60,19 +60,21 @@ public enum HSQLDBManager {
         update(sqlStringBuilder.toString());
     }
 
-    public String buildSQLStatement(long id,String test) {
+    public String buildSQLStatement(long id, long iteration, double fitness, int scenarioId) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("INSERT INTO data (id,test) VALUES (");
+        stringBuilder.append("INSERT INTO data (id, iteration, fitness, scenario) VALUES (");
         stringBuilder.append(id).append(",");
-        stringBuilder.append("'").append(test).append("'");
+        stringBuilder.append(iteration).append(",");
+        stringBuilder.append(fitness).append(",");
+        stringBuilder.append(scenarioId);
         stringBuilder.append(")");
         System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
     }
 
-    public void insert(String test) {
+ /*   public void insert(String test) {
         update(buildSQLStatement(System.nanoTime(),test));
-    }
+    }*/
 
     public void shutdown() {
         try {

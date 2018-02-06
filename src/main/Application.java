@@ -81,7 +81,7 @@ public class Application {
         MersenneTwisterFast randomizer = new MersenneTwisterFast();
 
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 100; i++) {
             Tour tour = new Tour();
             ArrayList<City> cities = new ArrayList<City>(availableCities);
             int rounds = 279;
@@ -116,22 +116,22 @@ public class Application {
 
     public void execute() {
         System.out.println("--- GeneticAlgorithm.execute()");
-        Population start = startPopulation();
         JSONParser parser = new JSONParser();
         JSONArray scenarios = new JSONArray();
 
         try {
-            scenarios = (JSONArray) parser.parse(new FileReader(Configuration.instance.userDirectory + Configuration.instance.fileSeparator + "configuration" + Configuration.instance.fileSeparator + "genetic_algorithm_tsp.json" ));
+            scenarios = (JSONArray) parser.parse(new FileReader(Configuration.instance.userDirectory + Configuration.instance.fileSeparator + "configuration" + Configuration.instance.fileSeparator + "genetic_algorithm_tsp.json"));
         } catch (Exception e) {
             e.getStackTrace();
         }
 
         for (int i = 0; i < 25; i++) {
+            Population start = startPopulation();
             Population scenarioPopulation = start;
             ArrayList<Tour> select = new ArrayList<Tour>();
             Tour cross = new Tour();
-            long mutationrate = 0;
             long iteration = 0;
+            long mutationrate = 0;
             JSONObject scenario = (JSONObject) scenarios.get(i);
             System.out.println("Scenario " + scenario.get("id"));
             try {
@@ -156,14 +156,23 @@ public class Application {
             while (bestTour.getFitness() > Configuration.instance.optimum) {
                 select = selection.doSelection(scenarioPopulation);
                 System.out.println("selction done");
-                cross = crossover.doCrossover(select.get(0), select.get(1));
-                if (mutationrate % 200 == 0) {
-                    cross = mutation.doMutation(cross);
+                for (int k = 0; k < select.size() - 1; k++) {
+                    cross = crossover.doCrossover(select.get(k), select.get(k + 1));
+                    //   System.out.println("crossover done");
+                    if (mutationrate % 200 == 0) {
+                        cross = mutation.doMutation(cross);
+                        System.out.println("mutation done");
+                    }
+                    mutationrate++;
+                    scenarioPopulation.addTourToPopulation(cross);
                 }
-                scenarioPopulation.addTourToPopulation(cross);
                 bestTour = getBestTour(scenarioPopulation);
+                System.out.println(bestTour.getFitness());
                 iteration++;
-
+                int scene = i + 1;
+             /*   HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(iteration,
+                        1000000, bestTour.getFitness(), scene));
+*/
                 if (iteration == 1000000) {
                     break;
                 }
