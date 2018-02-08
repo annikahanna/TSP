@@ -64,7 +64,7 @@ public class Permutation {
         MinimalDistance min = new MinimalDistance();
         Scanner scanner = new Scanner(System.in);
         System.out.println("What do you want to analyze? Please insert parameter.");
-        System.out.println("You can choose between all, first, middle and last");
+        System.out.println("You can choose between all, first, middle and last. You can go on by typing exit");
         String eval = scanner.nextLine();
 
         //Evaluierung der Eingabe
@@ -118,6 +118,8 @@ public class Permutation {
                 System.out.println(tourLast.getCities().get(q));
             }
 
+        } else if (eval.equals("exit")) {
+            return;
         } else {
             System.out.println("Wrong parameter");
         }

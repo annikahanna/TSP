@@ -54,8 +54,10 @@ public enum HSQLDBManager {
         StringBuilder sqlStringBuilder = new StringBuilder();
         sqlStringBuilder.append("CREATE TABLE data ").append(" ( ");
         sqlStringBuilder.append("id BIGINT NOT NULL").append(",");
-        sqlStringBuilder.append("test VARCHAR(20) NOT NULL").append(",");
-        sqlStringBuilder.append("PRIMARY KEY (id)");
+        sqlStringBuilder.append("iteration BIGINT NOT NULL").append(",");
+        sqlStringBuilder.append("fitness DOUBLE NOT NULL").append(",");
+        sqlStringBuilder.append("scenario INT NOT NULL").append(",");
+        sqlStringBuilder.append("PRIMARY KEY (id, scenario)");
         sqlStringBuilder.append(" )");
         update(sqlStringBuilder.toString());
     }

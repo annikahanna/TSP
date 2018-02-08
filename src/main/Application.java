@@ -65,7 +65,8 @@ public class Application {
         instanceReader.close();
 
         System.out.println();
-        // permutation.generate(tspLibReader, false);
+        //start bruteforce
+        permutation.generate(tspLibReader, false);
     }
 
     public void initConfiguration() {
@@ -73,6 +74,7 @@ public class Application {
         System.out.println();
     }
 
+    //creates new population at the beginnig of every new scenario
     public Population startPopulation() {
         System.out.println("--- GeneticAlgorithm.startPopulation()");
 
@@ -100,6 +102,7 @@ public class Application {
 
     }
 
+    //sort population by minimal fitness = best Value
     public Tour getBestTour(Population population) {
         for (int i = 0; i < population.getSize() - 1; i++) {
             for (int j = i + 1; j < population.getSize(); j++) {
@@ -119,12 +122,14 @@ public class Application {
         JSONParser parser = new JSONParser();
         JSONArray scenarios = new JSONArray();
 
+        //read all scenarios from json file
         try {
             scenarios = (JSONArray) parser.parse(new FileReader(Configuration.instance.userDirectory + Configuration.instance.fileSeparator + "configuration" + Configuration.instance.fileSeparator + "genetic_algorithm_tsp.json"));
         } catch (Exception e) {
             e.getStackTrace();
         }
 
+        //iteration for every scenario
         for (int i = 0; i < 25; i++) {
             Population start = startPopulation();
             Population scenarioPopulation = start;
@@ -134,6 +139,7 @@ public class Application {
             long mutationrate = 0;
             JSONObject scenario = (JSONObject) scenarios.get(i);
             System.out.println("Scenario " + scenario.get("id"));
+            //choose right classes
             try {
                 Class clazz = Class.forName(scenario.get("selection").toString());
                 selection = (ISelection) clazz.newInstance();
@@ -153,30 +159,36 @@ public class Application {
                 e.getStackTrace();
             }
             Tour bestTour = getBestTour(start);
+            //starts algorithem until 1000000 iterations are done or best value found
             while (bestTour.getFitness() > Configuration.instance.optimum) {
+                //do selection
                 select = selection.doSelection(scenarioPopulation);
-                System.out.println("selction done");
+                //do crossover
+                //matches all pairs
                 for (int k = 0; k < select.size() - 1; k++) {
                     cross = crossover.doCrossover(select.get(k), select.get(k + 1));
                     //   System.out.println("crossover done");
+                    //mutate one tour after 200 iterations
                     if (mutationrate % 200 == 0) {
                         cross = mutation.doMutation(cross);
                         System.out.println("mutation done");
                     }
                     mutationrate++;
+                    //add tour to scenario
                     scenarioPopulation.addTourToPopulation(cross);
                 }
+                //finds new best tour
                 bestTour = getBestTour(scenarioPopulation);
                 System.out.println(bestTour.getFitness());
                 iteration++;
                 int scene = i + 1;
-             /*   HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(iteration,
+                //save new values in db
+                HSQLDBManager.instance.update(HSQLDBManager.instance.buildSQLStatement(iteration,
                         1000000, bestTour.getFitness(), scene));
-*/
+                //after 1.000.000 iterations break
                 if (iteration == 1000000) {
                     break;
                 }
-                System.out.println(bestTour.getFitness());
             }
             System.out.println("Best Tour found with the value of " + bestTour.getFitness());
 
