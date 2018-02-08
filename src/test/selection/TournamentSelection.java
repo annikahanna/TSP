@@ -33,7 +33,7 @@ public class TournamentSelection {
         Population p = TestTourHelper.getAscendingPopulation(2,10, false, cityXy);
 
         // Pick supposed winner
-        ArrayList<Tour> supposedWinner = new ArrayList<>();
+        ArrayList<Tour> supposedWinner = new ArrayList<Tour>();
         supposedWinner.add(p.getSingleTour(1));
 
         int contender1 = 0;
@@ -46,7 +46,7 @@ public class TournamentSelection {
         assertEquals(6.44291702139059, fitnessContender1, Configuration.instance.ASSERT_DELTA);
         assertEquals(3.071682956611869, fitnessContender2, Configuration.instance.ASSERT_DELTA);
 
-        ArrayList<Tour> winners = new ArrayList<>();
+        ArrayList<Tour> winners = new ArrayList<Tour>();
         tournamentTest.chooseWinner(p, winners, fitnessContender1, fitnessContender2, contender1, contender2);
 
         // Check if correct winner is chosen

@@ -22,8 +22,8 @@ public class HeuristicMutation implements IMutation {
         }
     }
 
-    private ArrayList<CityIndex> randomCities = new ArrayList<>();
-    private ArrayList<Integer> integers = new ArrayList<>();
+    private ArrayList<CityIndex> randomCities = new ArrayList<CityIndex>();
+    private ArrayList<Integer> integers = new ArrayList<Integer>();
     private ArrayList<City> parent;
 
     public Tour doMutation(Tour tour)

@@ -1,9 +1,7 @@
 package data;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 
 import main.Configuration;
 
@@ -56,25 +54,29 @@ public enum HSQLDBManager {
         StringBuilder sqlStringBuilder = new StringBuilder();
         sqlStringBuilder.append("CREATE TABLE data ").append(" ( ");
         sqlStringBuilder.append("id BIGINT NOT NULL").append(",");
-        sqlStringBuilder.append("test VARCHAR(20) NOT NULL").append(",");
-        sqlStringBuilder.append("PRIMARY KEY (id)");
+        sqlStringBuilder.append("iteration BIGINT NOT NULL").append(",");
+        sqlStringBuilder.append("fitness DOUBLE NOT NULL").append(",");
+        sqlStringBuilder.append("scenario INT NOT NULL").append(",");
+        sqlStringBuilder.append("PRIMARY KEY (id, scenario)");
         sqlStringBuilder.append(" )");
         update(sqlStringBuilder.toString());
     }
 
-    public String buildSQLStatement(long id,String test) {
+    public String buildSQLStatement(long id, long iteration, double fitness, int scenarioId) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("INSERT INTO data (id,test) VALUES (");
+        stringBuilder.append("INSERT INTO data (id, iteration, fitness, scenario) VALUES (");
         stringBuilder.append(id).append(",");
-        stringBuilder.append("'").append(test).append("'");
+        stringBuilder.append(iteration).append(",");
+        stringBuilder.append(fitness).append(",");
+        stringBuilder.append(scenarioId);
         stringBuilder.append(")");
         System.out.println(stringBuilder.toString());
         return stringBuilder.toString();
     }
 
-    public void insert(String test) {
+ /*   public void insert(String test) {
         update(buildSQLStatement(System.nanoTime(),test));
-    }
+    }*/
 
     public void shutdown() {
         try {
@@ -85,4 +87,25 @@ public enum HSQLDBManager {
             System.out.println(sqle.getMessage());
         }
     }
+
+    public ArrayList<Integer> selectData(String scenarioID)
+    {
+        ArrayList<Integer> result = new ArrayList<Integer>();
+        try {
+            Statement statement = connection.createStatement();
+            String sqlStatement = "SELECT fitnessValue FROM data WHERE scenarioID = '" + scenarioID + "'";
+            ResultSet resultSet = statement.executeQuery(sqlStatement);
+            while (resultSet.next()) {
+                //System.out.println(resultSet.getInt(1));
+                result.add(resultSet.getInt(1));
+            }
+            System.out.println(result);
+            return result;
+        }catch (SQLException sqle) {
+            System.out.println(sqle.getMessage());
+        }
+        return null;
+    }
+
+
 }

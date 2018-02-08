@@ -15,7 +15,7 @@ public class ExchangeMutation implements IMutation {
         }
 
         Collections.swap(tour.getCities(), swapIndex1, swapIndex2);
-        return null;
+        return tour;
     }
 
     public String toString() {

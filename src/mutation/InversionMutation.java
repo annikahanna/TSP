@@ -22,7 +22,7 @@ public class InversionMutation implements IMutation {
     private Tour inverseCities(Tour tour, int from, int to)
     {
         ArrayList<City> reversedCities = tour.getCities();
-        ArrayList<City> cities = new ArrayList<>(tour.getCities().subList(from, to));
+        ArrayList<City> cities = new ArrayList<City>(tour.getCities().subList(from, to));
 
         Collections.reverse(cities);
 

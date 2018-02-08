@@ -21,11 +21,11 @@ public class OrderedCrossover extends AbstractCrossover {
         int startIndex = random.nextInt(0, citiesCount - 1);
         int length = random.nextInt(1, citiesCount - startIndex);
 
-        ArrayList<City> childCities = new ArrayList<>();
+        ArrayList<City> childCities = new ArrayList<City>();
 
         //extract sublist of cities given by the random generated range
-        List<City> p1Cities = new ArrayList<>(tour01.getCities().subList(startIndex, startIndex + length));
-        List<City> p2Cities = new ArrayList<>(tour02.getCities());
+        List<City> p1Cities = new ArrayList<City>(tour01.getCities().subList(startIndex, startIndex + length));
+        List<City> p2Cities = new ArrayList<City>(tour02.getCities());
         p2Cities.removeAll(p1Cities);
 
         for (int i = 0; i < citiesCount; i++)

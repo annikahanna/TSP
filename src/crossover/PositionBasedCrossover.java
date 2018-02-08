@@ -11,8 +11,8 @@ public class PositionBasedCrossover extends AbstractCrossover {
 
     public Tour doCrossover(Tour tour01, Tour tour02) {
 
-        ArrayList<City> tour01Cities = new ArrayList<>(tour01.getCities());
-        ArrayList<City> tour02Cities = new ArrayList<>(tour02.getCities());
+        ArrayList<City> tour01Cities = new ArrayList<City>(tour01.getCities());
+        ArrayList<City> tour02Cities = new ArrayList<City>(tour02.getCities());
         Tour childTour = new Tour();
         MersenneTwisterFast randomizer = Configuration.instance.Random;
         City noRealCity = new City(-1, -1, -1);

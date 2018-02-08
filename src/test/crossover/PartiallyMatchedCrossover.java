@@ -62,8 +62,8 @@ public class PartiallyMatchedCrossover {
     public void doCrossoverCheckAllParentElementsAreInChild() {
         Tour result = crosser.doCrossover(parent1, parent2);
 
-        ArrayList<Integer> cityIDsResult = new ArrayList<>();
-        ArrayList<Integer> cityIDsParent1 = new ArrayList<>();
+        ArrayList<Integer> cityIDsResult = new ArrayList<Integer>();
+        ArrayList<Integer> cityIDsParent1 = new ArrayList<Integer>();
 
         for (int i = 0; i < result.getSize(); i++) {
             cityIDsResult.add(result.getCities().get(i).getId());
@@ -82,7 +82,7 @@ public class PartiallyMatchedCrossover {
     public void doCrossoverCheckElement290NotExists() {
         Tour result = crosser.doCrossover(parent1, parent2);
 
-        ArrayList<Integer> cityIDsResult = new ArrayList<>();
+        ArrayList<Integer> cityIDsResult = new ArrayList<Integer>();
 
         for (int i = 0; i < result.getSize(); i++) {
             cityIDsResult.add(parent1.getCities().get(i).getId());
@@ -96,7 +96,7 @@ public class PartiallyMatchedCrossover {
         Tour child = crosser.doCrossover(parent1, parent2);
         /*System.out.println(Arrays.toString(parent1.getCities().toArray()));
         System.out.println(Arrays.toString(child.getCities().toArray()));*/
-        HashSet<City> allChildCities = new HashSet<>(child.getCities());
+        HashSet<City> allChildCities = new HashSet<City>(child.getCities());
         assertEquals(routeLength, allChildCities.size());
     }
 
