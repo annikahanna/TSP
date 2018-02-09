@@ -1,13 +1,15 @@
 package statistics;
 
+import java.util.ArrayList;
+
 public interface IStatistics {
     void writeCSVFile();
-    void buildMeasureRFile();
+    void buildMeasureRFile(ArrayList<String> scenarios);
     void buildBarPlotFile();
-    void buildBoxPlotRFile();
-    void buildDotPlotRFile();
-    void buildHistogramRFile();
-    void buildStripChartRFile();
-    void buildTTestRFile();
-    void buildMostFrequentFitnessValuesRFile();
+    void buildBoxPlotRFile(ArrayList<String> scenarios);
+    void buildDotPlotRFile(ArrayList<String> scenarios);
+    void buildHistogramRFile(ArrayList<String> scenarios);
+    void buildStripChartRFile(ArrayList<String> scenarios);
+    void buildTTestRFile(ArrayList<String> scenarios);
+    void buildMostFrequentFitnessValuesRFile(ArrayList<String> scenarios);
 }
