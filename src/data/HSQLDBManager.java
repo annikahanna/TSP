@@ -1,7 +1,6 @@
 package data;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 import main.Configuration;
 
@@ -74,9 +73,6 @@ public enum HSQLDBManager {
         return stringBuilder.toString();
     }
 
- /*   public void insert(String test) {
-        update(buildSQLStatement(System.nanoTime(),test));
-    }*/
 
     public void shutdown() {
         try {
@@ -87,24 +83,21 @@ public enum HSQLDBManager {
             System.out.println(sqle.getMessage());
         }
     }
-
-    public ArrayList<Integer> selectData(String scenarioID)
+    public ResultSet selectData(String sqlStatement)
     {
-        ArrayList<Integer> result = new ArrayList<Integer>();
+        Statement statement = null;
+        ResultSet resultSet = null;
         try {
-            Statement statement = connection.createStatement();
-            String sqlStatement = "SELECT fitnessValue FROM data WHERE scenarioID = '" + scenarioID + "'";
-            ResultSet resultSet = statement.executeQuery(sqlStatement);
-            while (resultSet.next()) {
-                //System.out.println(resultSet.getInt(1));
-                result.add(resultSet.getInt(1));
-            }
-            System.out.println(result);
-            return result;
-        }catch (SQLException sqle) {
-            System.out.println(sqle.getMessage());
+            statement = connection.createStatement();
+            boolean result = statement.execute(sqlStatement);
+            if (!result)
+                System.out.println("error executing " + sqlStatement);
+            resultSet = statement.getResultSet();
+            statement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return null;
+        return resultSet;
     }
 
 

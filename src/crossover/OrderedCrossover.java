@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class OrderedCrossover extends AbstractCrossover {
 
-    @Override
     public Tour doCrossover(Tour tour01, Tour tour02) {
         MersenneTwisterFast random = Configuration.instance.Random;
 

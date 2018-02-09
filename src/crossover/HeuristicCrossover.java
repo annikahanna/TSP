@@ -8,7 +8,6 @@ import java.util.TreeMap;
 
 public class HeuristicCrossover extends AbstractCrossover {
 
-    @Override
     public Tour doCrossover(Tour tour01, Tour tour02) {
 
         City startCity = CrossoverHelper.getRandomCity(tour01.getCities());

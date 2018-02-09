@@ -128,6 +128,7 @@ public class Permutation {
 
     Application app = new Application();
 
+    //test
     @Before
     public void init() {
 
