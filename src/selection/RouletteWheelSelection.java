@@ -35,9 +35,9 @@ public class RouletteWheelSelection implements ISelection {
     {
         double[] rouletteWheel;
         rouletteWheel = new double[population.getSize()];
-        rouletteWheel[0] = Math.round(((population.getSingleTour(0).getFitness() / populationFitness) - 0.001) * 1000.0) / 1000.0;
+        rouletteWheel[0] = population.getSingleTour(0).getFitness() / populationFitness - 0.0001;
         for (int i = 1; i < rouletteWheel.length - 1; i++) {
-            rouletteWheel[i] = Math.round((rouletteWheel[i - 1] + ((population.getSingleTour(i).getFitness() / populationFitness - 0.001))) * 1000.0) / 1000.0;
+            rouletteWheel[i] = Math.round((rouletteWheel[i - 1] + ((population.getSingleTour(i).getFitness() / populationFitness - 0.0001))) * 1000.0) / 1000.0;
         }
         rouletteWheel[rouletteWheel.length - 1] = 1.0;
         return rouletteWheel;
@@ -64,6 +64,7 @@ public class RouletteWheelSelection implements ISelection {
                     r = randomDouble();
                 }
             } else if (i < rouletteWheel.length) {
+                r= randomDouble();
                 i++;
             } else {
                 i = 0;
@@ -76,7 +77,7 @@ public class RouletteWheelSelection implements ISelection {
 
     private double randomDouble()
     {
-        return Math.round(Configuration.instance.Random.nextDouble() * 1000.0) / 1000.0;
+        return Math.round(Configuration.instance.Random.nextDouble() * 1000.0 )/ 1000.0;
     }
 
     public boolean alreadySelected(ArrayList<Tour> selectedTours, Tour newTour)

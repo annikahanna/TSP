@@ -19,8 +19,12 @@ public class SubTourExchangeCrossover extends AbstractCrossover {
         childTour02.setCities(tour02Cities);
         MersenneTwisterFast randomizer = Configuration.instance.Random;
 
-        //set random search-width, but never the same size as the parent widths and minimum width 2
-        int width = randomizer.nextInt(tour01Cities.size() - 2) + 2;
+        /// set random search-width, but never bigger than half the size of the parent-tour (a higher size would be
+        // technically equivalent to the higher size subtracted half the size, but it's way slower) and minimum width 2
+        int width = randomizer.nextInt(tour01Cities.size() / 2) + 2;
+        // tmpWidth marks the base width in floating point. It will be halved and given to width after a
+        // Math.round(tmpWidth) to minimize a rounding bias, which would 'prefer' some numbers over others.
+        double tmpWidth = width;
 
         //set random indexes for both ArrayLists (attention to the right bound because of the width of the subtours!)
         int index01 = randomizer.nextInt(tour01Cities.size() - width);
@@ -66,8 +70,10 @@ public class SubTourExchangeCrossover extends AbstractCrossover {
             }
             while (index01original != index01);
 
-            //if no-match, reduce the width
-            width--;
+            //if no-match, reduce the width to a third of the previous width, so performance/match-chance increases
+            // significantly
+            tmpWidth = tmpWidth / 3;
+            width = (int) Math.round(tmpWidth);
         } while (width >= 2);
 
         //if width was already 2 (or less), then the fittest parent survives and gets returned!
